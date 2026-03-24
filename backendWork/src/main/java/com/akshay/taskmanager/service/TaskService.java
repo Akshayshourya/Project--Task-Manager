@@ -29,6 +29,7 @@ public class TaskService {
 
     public Task createTask(Long userid, TaskRequest request){
         User user = userRepository.findById(userid).orElseThrow(()->new UserNotFoundException(userid));
+        
         Task task = new Task();
 
         task.setUser(user);
