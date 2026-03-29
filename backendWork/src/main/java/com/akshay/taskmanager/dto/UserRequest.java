@@ -2,13 +2,17 @@ package com.akshay.taskmanager.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 public class UserRequest {
-    @NotBlank
-    private String name,password;
+    @NotBlank(message = "Name is Required!")
+    private String name;
 
-    @Email
-    @NotBlank
+    @Size(min = 6, message = "Password must be atleast 6 Characters long")
+    private String password;
+
+    @Email(message = "Invalid Email!")
+    @NotBlank(message = "Email is required!")
     private String email;
 
     public String getPassword() {
