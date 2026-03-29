@@ -14,6 +14,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(("/users"))
@@ -32,10 +33,10 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@Valid @RequestBody LoginRequest request)
+    public ResponseEntity<Map<String,String>> login(@Valid @RequestBody LoginRequest request)
     {
         String token = userService.login(request);
-        return ResponseEntity.ok(token);
+        return ResponseEntity.ok(Map.of("token" , token));
     }
 
     @PreAuthorize("hasRole('ADMIN')")
