@@ -37,6 +37,14 @@ function App() {
   }
 
 
+const handleMarkComplete = async (taskId) => {
+  const token = localStorage.getItem("token");
+  await fetch(`http://localhost:8080/tasks/${taskId}/complete`,{ method: "PATCH", headers: { Authorization: `Bearer ${token}`} });
+  
+  await getTasks();
+}
+
+
   return (
     <div>
 
@@ -49,9 +57,10 @@ function App() {
         {
           tasks.map(task => (
             <div key={task.id}>
-              <h3>{task.title}</h3>
+              <h3>{task.id}{task.title}</h3>
               <p>{task.description}</p>
               <p>Status : {task.completed? "Completed!":"Pending.."}</p>
+              <button onClick={() => handleMarkComplete(task.id)}>Mark Complete!</button>
               <hr />
             </div>
           ))
